@@ -18,13 +18,13 @@ const Uploader = () => {
           const maxSize = 5 * 1024 * 1024; // 5 MB
       
           if (allowedFileTypes.includes(file.type) && file.size <= maxSize) {
-            // Dosya türü ve boyutu uygun, işlemleri burada gerçekleştirin
+            // dosya türü ve boyutu uygun, işlemleri burada gerçekleştirin
             dispatch(logoSlice(event.target.value))
             
           } else {
-            // Dosya türü veya boyutu uygun değil
+            // dosya türü veya boyutu uygun değil
             alert('Lütfen geçerli bir .jpg, .jpeg veya .png dosyası (5 MB\'dan küçük) seçin.');
-            fileInput.value = ''; // Input'u temizle
+            fileInput.value = ''; // input'u temizle
           }
         }
         

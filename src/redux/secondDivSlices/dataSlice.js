@@ -44,26 +44,12 @@ export const dataSlice = createSlice({
     switchItems: (state, action) => {
       const { index } = action.payload;
 
-      if (index > 0 && index < state.data.length) {
-        const currentExpense = state.data[index];
-
-        // Check if the current expense meets the condition
-        const meetsCondition =
-          currentExpense.description === '' &&
-          currentExpense.cost === 0 &&
-          currentExpense.quantity === 0 &&
-          currentExpense.amount === 0;
-
-        if (meetsCondition) {
-          // If the condition is met, switch with the previous item
-          const temp = state.data[index - 1];
+      if (index > 0 && index < state.data.length) { //0. indeksteki yani en yukarıdaki itemi kendisinden üstteki eleman ile değiştireme-
+        const currentExpense = state.data[index];   //yiz. eğer okuyorsan mutlu yıllar sana okuyucu tarih : 30 Aralık 2021 gecenin 
+                                                    // 2.50'si muhtemelen benim gibi hayatsız bir yazılımcıysan mutlu yıllar diyenin
+          const temp = state.data[index - 1];       // olmayacaktır :) 
           state.data[index - 1] = { ...currentExpense };
           state.data[index] = { ...temp };
-        } else {
-          const temp = state.data[index + 1];
-          state.data[index + 1] = { ...currentExpense };
-          state.data[index] = { ...temp };
-        }
       } else {
         console.log('Index out of bounds.');
       }

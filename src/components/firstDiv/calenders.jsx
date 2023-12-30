@@ -20,7 +20,7 @@ const handleStartDateChange = (date) => {
 };
 
 const handleEndDateChange = (date) => {
-  // Bitiş tarihi, başlangıç tarihinden önce seçilemez
+  // bitiş tarihi, başlangıç tarihinden önce seçilemez
   if (date < startDate) {
     console.error('Bitiş tarihi, başlangıç tarihinden önce seçilemez');
   } else {
@@ -68,7 +68,7 @@ return (
                 onChange={handleStartDateChange}
                 dateFormat="MMM d, yyyy"
                 className='w-full h-[48px] border-black border-[1px] flex items-center mt-[9.19px]'
-              /> {/* sign */}
+              /> 
               <div className='absolute top-[50%] right-[10px] transform -translate-y-1/2'>
                 <BsChevronDown />
               </div>
@@ -83,7 +83,7 @@ return (
                 onChange={handleEndDateChange}
                 dateFormat="MMM d, yyyy"
                 className='w-full h-[48px] border-black border-[1px] flex items-center mt-[9.19px]'
-              /> {/* sign */}
+              /> 
               <div className='absolute top-[50%] right-[10px] transform -translate-y-1/2'>
                 <BsChevronDown />
               </div>

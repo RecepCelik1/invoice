@@ -11,11 +11,11 @@ const CurrencyDropdown = () => {
     const currency = useSelector((state)=>state.currency)
     const dispatch = useDispatch()
     console.log(currency)
-    // Ülkelerin listesi
+    // ülkelerin listesi
     const countries = [
       { value: 'US $', label: 'US dollar', flag: '🇺🇸' },
       { value: '€', label: 'Euro', flag: '🇪🇺' },
-      // Diğer ülkeleri ekleyin
+      // diğer ülkeleri ekleyin
     ];
   
     const customStyles = {
@@ -40,10 +40,10 @@ const CurrencyDropdown = () => {
     };
   
     useEffect(() => {
-      // Seçili para birimini başlangıçta ABD Doları olarak ayarlıyoruz
+      // seçili para biriminin default değerini ABD Doları olarak ayarlıyoruz
       setSelectedCurrency(countries[0]);
       
-      // Redux store'daki currency'yi güncelliyoruz
+      // redux store'daki currency'yi güncelliyoruz
       dispatch(Currency(countries[0].value));
     }, [dispatch]);
 

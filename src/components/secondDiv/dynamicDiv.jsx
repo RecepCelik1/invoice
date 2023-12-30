@@ -24,7 +24,8 @@ const ExpenseForm = () => {
       amount: 0,
     };
     dispatch(defaultDataFunc({ index: 0, expense: defaultExpense }));
-    //dispatch(dynamicHeightFunc(height))
+    //dispatch(dynamicHeightFunc(height))  //==> burada ufak bi pürüz var gibi yarın bakıcam dinamik olarak parent div yüksekliğini 
+    //ayarlamak için kullanıyorum
   }, []); 
   
   const handleButtonClick = () => {
@@ -52,7 +53,7 @@ const ExpenseForm = () => {
     expenseToUpdate[field] = value;
   }
 
-  // Cost ve quantity değerlerini çarp ve amount içine kaydet
+  // cost ve quantity değerlerini çarp ve amount içine kaydet
   if (field === "cost" || field === "quantity") {
     const cost = expenseToUpdate.cost || 0;
     const quantity = expenseToUpdate.quantity || 0;
@@ -63,20 +64,20 @@ const ExpenseForm = () => {
 
   setExpenses(updatedExpenses);
 
-  // Değişen öğeyi ve indeksi içeren nesneyi dispatch edin
+  // değişen öğeyi ve indeksi içeren nesneyi dispatch edin
   dispatch(updateDataFunc({ index, expense: expenseToUpdate }));
   };
 
   const parseNumericInput = (value) => {
-    // Sadece rakamları, virgülü ve noktayı kabul et
+    // sadece rakamları, virgülü ve noktayı kabul et
     const parsedValue = value.replace(/[^0-9.]/g, '');
 
-    // Birden fazla nokta varsa sadece ilkini kullan
+    // birden fazla nokta varsa sadece ilkini kullan
     const dotIndex = parsedValue.indexOf('.');
     if (dotIndex !== -1) {
       const beforeDot = parsedValue.substring(0, dotIndex);
       const afterDot = parsedValue.substring(dotIndex + 1);
-      return beforeDot + '.' + afterDot.replace(/[.,]/g, ''); // Nokta veya virgülü temizle
+      return beforeDot + '.' + afterDot.replace(/[.,]/g, ''); // nokta veya virgülü temizle
     }
 
     return parsedValue;
@@ -94,13 +95,13 @@ const ExpenseForm = () => {
   };
 
   const itemsSwitch = (index) => {
-     // Not: Gerekirse yerel durumu güncellemek isteyebilirsiniz.
+     // not: gerekirse yerel durumu güncellemek isteyebilirsiniz.
   const updatedExpenses = [...expenses];
   if (index > 0 && index < updatedExpenses.length) {
     const temp = updatedExpenses[index - 1];
     updatedExpenses[index - 1] = { ...updatedExpenses[index] };
     updatedExpenses[index] = { ...temp };
-    setExpenses(updatedExpenses); // Yerel durumu güncelle
+    setExpenses(updatedExpenses); // yerel durumu güncelle
     dispatch(switchItems({ index }));
   } else {
     console.log('Geçersiz indeks.');
