@@ -13,6 +13,30 @@ function App() {
   const h2 = 1044.17  // burayı contentin yükeskliğini dinamik hale getirmek için yazdım ama bu konuda ufak tefek pürüzler var 
                       // olması gerektiği gibi çalışmıyor düzelttikten editlerim
   console.log('height : ', height)
+
+  /*
+  * FirstDiv : invoice number , purchase order, logo yükleme kısmı, company details , bill to currency, invoice date ve due date
+  kısımlarını içeriyor. componetler içerisindeki first div kısmında bulunuyor. oradaki bütün yapılar secondDIV adındaki başka bir
+  componente aktarılıp sonra buraya aktarıldı. app.js' te kod kalabalığı olmaması için
+  */
+
+
+  /*
+  * SecondDiv : expense kısmına ürün eklediğim bölüm bulunuyor sadece. bu kısım dinamik yüksekliğe sahip. components içerisinde 
+    secondDiv klasorü içerisinde tutuluyor. düzen bozulmasın diye secondDIV e aktarılıp, buraya çekildi
+  */
+
+
+  /*
+  * ThirDiv : notes, bank account details , subtotal , tax , discount , shipping fee ve total kısımlarını içeriyor. componetler içerisindeki thirthDiv klasöründe tutuluyor. oradaki bütün yapılar thirthDIV adındaki başka bir componente aktarılıp sonra buraya aktarıldı. app.js' te kod kalabalığı olmaması için
+  */
+
+
+  /*
+  * FourthDiv : sadece Create the invoice butonunu içeriyor. doğrudan componensler içerisinde  tutuluyor.
+  */
+
+
   return (
       <div className='flex flex-col items-center'>
         <div className={`relative w-[858px] h-[${h1 + height}] flex flex-col items-center rounded-[30px] shadow-2xl mt-[150px] mb-[200px]`}>
