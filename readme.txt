@@ -27,6 +27,6 @@ module.exports = {
 
 # son olarak terminalde aşağıdaki komutu çalıştırıp terminali kapatın 
 
-* npx tailwindcss -i ./src/index.css -o ./dist/output.css --watch
+* npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch
 
 # yeni bir terminal açıp npm start komutunu girerek projeyi ayağa kaldırın
