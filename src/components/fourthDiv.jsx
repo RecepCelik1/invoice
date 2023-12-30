@@ -8,8 +8,8 @@ const FourthDiv = () => {
 
   const name = useSelector(state => state.name)
   const details = useSelector(state => state.details)
-  const logo = useSelector(state => state.logo.uploadLogo)
-  const currency = useSelector(state => state.currency.currency)
+  const logo = useSelector(state => state.logo.uploadLogo)  // şu anlık yüklenen resimleri pdfye ekleyemiyoruz jsPDF boktan bir k
+  const currency = useSelector(state => state.currency.currency)  // kütüphane düzeltince editlerim
   const calenders = useSelector(state => state.calenders)
   const productsData = useSelector(state => state.dataStore.data)
   const subTotal = useSelector(state => state.dataStore.sumOfamounts)
