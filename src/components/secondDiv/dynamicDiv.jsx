@@ -5,9 +5,13 @@ import { createDataFunc, deleteDataFunc, updateDataFunc, switchItems, defaultDat
 const ExpenseForm = () => {
 
   const dispatch = useDispatch()
-  const [height, setHeight] = useState(270.94);
-  const [expenses, setExpenses] = useState([
-    {
+  const [height, setHeight] = useState(270.94); //=> contentin bulunduğu kutunun yüksekliğini intekraktif hale getirmek için tanımlandı
+                                                //aşağıda yeni kutu oluşturmak veya silmek için kullanılan fonksiyonlar tetiklendiğinde
+                                                //oluşan kutu boyutu kadar height değişkeni artıyor ve daha sonra content height 
+                                                //olarak kullanılıyor
+
+  const [expenses, setExpenses] = useState([    //=> her yeni div oluştuğunda dive karşılık bir object oluşuyor. objedeki değişkenler 
+    {                                           //divdeki inputlara karşılıklı. oluşan obje expenses içerisinde saklanıyor
       description: "",
       cost: 0,
       quantity: 0,
@@ -16,7 +20,7 @@ const ExpenseForm = () => {
   ]);
  
 
-  useEffect(() => {
+  useEffect(() => { //=> sayfa ilk render edildiğinde expense içerisinde default olarak oluşan objeyi stateye dispatch etmek için
     const defaultExpense = {
       description: "",
       cost: 0,
@@ -26,50 +30,53 @@ const ExpenseForm = () => {
     dispatch(defaultDataFunc({ index: 0, expense: defaultExpense }));
     //dispatch(dynamicHeightFunc(height))  //==> burada ufak bi pürüz var gibi yarın bakıcam dinamik olarak parent div yüksekliğini 
     //ayarlamak için kullanıyorum
-  }, []); 
+  }, []); //=> array boş bırakılarak sadece ilk renderda tetiklenmesi sağlanıypr
   
-  const handleButtonClick = () => {
+  const handleButtonClick = () => { //=> yeni div oluşturulduğunda tetiklenen fonksiyon
     const newExpense = {
       description: "",
       cost: 0,
       quantity: 0,
       amount: 0,
     };
-    setExpenses([...expenses, newExpense]);
-    dispatch(createDataFunc({ index: expenses.length, expense: newExpense }));
-    setHeight(height + 88.89)
+    setExpenses([...expenses, newExpense]); //=> oluşan obje expense içerisine pushlanıyor
+    dispatch(createDataFunc({ index: expenses.length, expense: newExpense })); //=> güncel expenses dispatch ediliyor
+    
+    setHeight(height + 88.89) //=> dinamik yükseklik
     setHeight((prevHeight) => prevHeight + 88.89);
   };
 
  
 
-  const handleInputChange = (index, field, value) => {
-    const updatedExpenses = [...expenses];
-  const expenseToUpdate = { ...updatedExpenses[index] };
+  const handleInputChange = (index, field, value) => { //=> inputlarda değilik olduğunda tetiklenen fonksiyon
 
-  if (field === "cost" || field === "quantity") {
-    expenseToUpdate[field] = parseNumericInput(value);
+    const updatedExpenses = [...expenses];  //=> expenses'taki objeleri klonla
+  const expenseToUpdate = { ...updatedExpenses[index] }; //=> index numarasından update edilecek objeyi çek
+
+  if (field === "cost" || field === "quantity") {     //=> numeric bir inputta değişilik yapıldıysa gerekli parsing işlemleri için 
+    expenseToUpdate[field] = parseNumericInput(value);  //tanımlanmış fonksiyona gönder value'yi
   } else {
-    expenseToUpdate[field] = value;
+    expenseToUpdate[field] = value; //=> numeric olmayan inputta yapılan değişikliği direk expenseToUpdate içerisinde güncelle
   }
 
-  // cost ve quantity değerlerini çarp ve amount içine kaydet
+  //=> cost ve quantity değerlerini çarp ve amount içine kaydet. amount ilgili dive ait objede tutulur.
   if (field === "cost" || field === "quantity") {
     const cost = expenseToUpdate.cost || 0;
     const quantity = expenseToUpdate.quantity || 0;
     expenseToUpdate.amount = cost * quantity;
   }
 
-  updatedExpenses[index] = expenseToUpdate;
-
-  setExpenses(updatedExpenses);
+  updatedExpenses[index] = expenseToUpdate; //=> gerekli datalar update edildikten sonra, klonladığımız updatedExpenses'a pushlanır
+                                            // ve nihai güncel expenses artık updated expenses içerisindedir
+  setExpenses(updatedExpenses); //=> asıl depo expenses update edilir
 
   // değişen öğeyi ve indeksi içeren nesneyi dispatch edin
-  dispatch(updateDataFunc({ index, expense: expenseToUpdate }));
+  dispatch(updateDataFunc({ index, expense: expenseToUpdate }));  //=> en güncel expenses dispatch edilir
   };
 
-  const parseNumericInput = (value) => {
-    // sadece rakamları, virgülü ve noktayı kabul et
+  const parseNumericInput = (value) => { //=> parsing ve filtreleme işlemleri
+    //=> sadece rakamları, virgülü ve noktayı kabul et
+
     const parsedValue = value.replace(/[^0-9.]/g, '');
 
     // birden fazla nokta varsa sadece ilkini kullan
@@ -83,26 +90,29 @@ const ExpenseForm = () => {
     return parsedValue;
   };
 
-  const handleDeleteClick = (index) => {
+  const handleDeleteClick = (index) => { //=> ilgili dive ait obje index numarasını üzerinden bulunup silinir
     const updatedExpenses = [...expenses];
     updatedExpenses.splice(index, 1);
     setExpenses(updatedExpenses);
     dispatch(deleteDataFunc(index))
-    if(height > 182.05){
+
+    if(height > 182.05){  //=> ne olur ne olmaz birisi bi şekilde buga sokup content yüksekliğini sıfıra indirmesin diye
       setHeight(height - 88.89)
       setHeight((prevHeight) => Math.max(182.05, prevHeight - 88.89));
     }
   };
 
   const itemsSwitch = (index) => {
-     // not: gerekirse yerel durumu güncellemek isteyebilirsiniz.
+     //=> not: gerekirse yerel durumu güncellemek isteyebilirsiniz.
   const updatedExpenses = [...expenses];
   if (index > 0 && index < updatedExpenses.length) {
-    const temp = updatedExpenses[index - 1];
-    updatedExpenses[index - 1] = { ...updatedExpenses[index] };
-    updatedExpenses[index] = { ...temp };
-    setExpenses(updatedExpenses); // yerel durumu güncelle
-    dispatch(switchItems({ index }));
+
+    const temp = updatedExpenses[index - 1]; //=> kendisinden önceki indexte bulunan değeri geçici olarak temp'te tut
+    updatedExpenses[index - 1] = { ...updatedExpenses[index] }; //=> kendisinden önceki indexe pushla
+    updatedExpenses[index] = { ...temp }; //=> tempi istek yapılan indexe pushla
+    setExpenses(updatedExpenses); //=> yerel durumu güncelle
+    dispatch(switchItems({ index })); //=> ilgili stateye dispatch et
+
   } else {
     console.log('Geçersiz indeks.');
   }
@@ -110,47 +120,58 @@ const ExpenseForm = () => {
 
 
   return (
-    <div className={`bg-[#16330014] w-full h-[${height}] mt-[16px] mb-[32px] flex flex-col items-center`}>   
-      {expenses.map((expense, index) => (
-        <div className={` w-full h-[${height}] mt-[16px] mb-[32px] flex flex-col items-center`}>
-        <div className="w-[730px] h-[88.9px] -300 mr-[8px] ml-[8px] mt-[23px] mb-[15px]">
-          <div className={`p-4 h-[${height}]`}>
-        <div key={index} className="mb-4 p-2 flex justify-center">
-          <input
-            type="text"
-            placeholder="Description"
-            value={expense.description}
-            onChange={(e) => handleInputChange(index, "description", e.target.value)}
-            className="p-2 mb-2 mr-2 border w-[207.6px] h-[48px]"
-          />
-          <input
-            type="text"
-            placeholder="Cost"
-            value={expense.cost}
-            onChange={(e) => handleInputChange(index, "cost", parseNumericInput(e.target.value))}
-            className="p-2 mb-2 mr-2 border w-[69.2px] h-[48px]"
-          />
-          <input
-            type="text"
-            placeholder="Quantity"
-            value={expense.quantity}
-            onChange={(e) => handleInputChange(index, "quantity", parseNumericInput(e.target.value))}
-            className="p-2 mb-2 mr-2 border w-[69.2px] h-[48px]"
-          />
-          <div className="bg-white w-[69.2px] h-[48px] flex items-center mr-[100px]"><p className="ml-[10px]">{expense.amount}</p></div>
-          <button onClick={() => handleDeleteClick(index)} className="p-2 bg-red-500 text-white">
-            Delete
-          </button>
-          <button 
-          onClick={() => itemsSwitch(index)}
-          className="p-2 bg-green-500 text-white ml-[30px]">
-            Up
-          </button>
+
+<div className={`bg-[#16330014] w-full h-[${height}] mt-[16px] mb-[32px] flex flex-col items-center`}>
+
+   {expenses.map((expense, index) => ( //=> expense içerisinde bulunan dataları aşağıdaki gibi mapla
+    <div className={` w-full h-[${height}] mt-[16px] mb-[32px] flex flex-col items-center`}>
+      <div className="w-[730px] h-[88.9px] -300 mr-[8px] ml-[8px] mt-[23px] mb-[15px]">
+        <div className={`p-4 h-[${height}]`}>
+          <div key={index} className="mb-4 p-2 flex justify-center">
+
+              <input  //=> ilk input alanı içerisine girilen value, geçerli index numarasını ve hangi alandan gönderildiğini 
+              type="text" //=> handleInputChange'e yolla
+              placeholder="Description"
+              value={expense.description} 
+              onChange={(e) => handleInputChange(index, "description", e.target.value)}
+              className="p-2 mb-2 mr-2 border w-[207.6px] h-[48px]"
+              />
+
+              <input //=> ikinci input
+                type="text"
+                placeholder="Cost"
+                value={expense.cost}
+                onChange={(e) => handleInputChange(index, "cost", parseNumericInput(e.target.value))}
+                className="p-2 mb-2 mr-2 border w-[69.2px] h-[48px]"
+              />
+
+              <input //=> 3. input
+                type="text"
+                placeholder="Quantity"
+                value={expense.quantity}
+                onChange={(e) => handleInputChange(index, "quantity", parseNumericInput(e.target.value))}
+                className="p-2 mb-2 mr-2 border w-[69.2px] h-[48px]"
+              />
+
+              <div className="bg-white w-[69.2px] h-[48px] flex items-center mr-[100px]">
+                <p className="ml-[10px]">{expense.amount}</p>
+              </div>
+
+              <button //=> silme butonu
+              onClick={() => handleDeleteClick(index)} className="p-2 bg-red-500 text-white">
+                Delete
+              </button>
+
+              <button //=> switch butonu
+              onClick={() => itemsSwitch(index)}
+              className="p-2 bg-green-500 text-white ml-[30px]">
+                Up
+              </button>
+          </div>
         </div>
-        </div>
-    </div>                
-    </div>
-      ))}
+      </div>                
+    </div>))}
+
       <button onClick={handleButtonClick} className="p-2 bg-blue-500 text-white">
         Add Expense
       </button>

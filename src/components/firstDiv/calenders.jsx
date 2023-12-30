@@ -12,15 +12,15 @@ const [endDate, setEndDate] = useState(new Date());
 const calenders = useSelector((state)=>state.calenders)
 const dispatch = useDispatch()
 
-console.log(calenders)
+console.log(`invoice date : `, calenders.invoiceDate, `due date : `,calenders.dueDate)
 
-const handleStartDateChange = (date) => {
+const handleStartDateChange = (date) => { //=> kullanıcıdan başlangıç tarihini alıyoruz
   setStartDate(date);
   dispatch(invoicerFunc({ day: date.getDate(), month: date.getMonth(), year: date.getFullYear() }));
 };
 
-const handleEndDateChange = (date) => {
-  // bitiş tarihi, başlangıç tarihinden önce seçilemez
+const handleEndDateChange = (date) => {  //=> kullanıcıdan bitiş tarihini alıyoruz
+  //=> bitiş tarihi, başlangıç tarihinden önce seçilemez
   if (date < startDate) {
     console.error('Bitiş tarihi, başlangıç tarihinden önce seçilemez');
   } else {
@@ -29,7 +29,7 @@ const handleEndDateChange = (date) => {
   }
 };
 
-useEffect(() => {
+useEffect(() => { //=> useEffect ile sayfa ilk render edildiğinde default olarak güncel tarih seçilip, ilgili stateye dispatch ediliyor 
   const currentDate = new Date();
   setStartDate(currentDate);
   dispatch(
@@ -41,7 +41,8 @@ useEffect(() => {
     
   );
 }, [dispatch]);
-useEffect(() => {
+
+useEffect(() => {   //=> aynı işlemler bitiş tarihi içinde
   const currentDate = new Date();
   setEndDate(currentDate);
   dispatch(
@@ -60,7 +61,8 @@ return (
     <div className='w-[377.005px] h-[102.88px]'>
         <div className='h-full w-full flex justify-center relative'>
 
-          <div className='w-[188.49px] h-full flex flex-col items-center'>
+
+          <div className='w-[188.49px] h-full flex flex-col items-center'>  {/*=> başlangıç tarihi ile ilgili kısım */}
             <div className='w-[164.40px] h-[78.88px] mb-[24px] flex flex-col'>
               <label className=' '>Invoice date</label>
               <DatePicker 
@@ -68,14 +70,15 @@ return (
                 onChange={handleStartDateChange}
                 dateFormat="MMM d, yyyy"
                 className='w-full h-[48px] border-black border-[1px] flex items-center mt-[9.19px]'
-              /> 
+              /> {/*=> takvimden tarih seçimi için react datepicker kullanıldı */}
               <div className='absolute top-[50%] right-[10px] transform -translate-y-1/2'>
                 <BsChevronDown />
               </div>
             </div>
           </div>
 
-          <div className='w-[188.49px] h-full flex flex-col items-center'>
+
+          <div className='w-[188.49px] h-full flex flex-col items-center'> {/*=> bitiş tarihi ile ilgili kısım */}
             <div className='w-[164.40px] h-[78.88px] mb-[24px] flex flex-col'>
               <label className=' '>Due date</label>
               <DatePicker
@@ -89,6 +92,8 @@ return (
               </div>
             </div>
           </div>
+
+
         </div>
       </div>
       </div>

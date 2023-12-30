@@ -10,12 +10,13 @@ const CurrencyDropdown = () => {
     const [selectedCurrency, setSelectedCurrency] = useState(null);
     const currency = useSelector((state)=>state.currency)
     const dispatch = useDispatch()
-    console.log(currency)
-    // ülkelerin listesi
+    console.log(`seçili para birimi (currency) : `, currency)
+
+    //=> ülkelerin listesi
     const countries = [
       { value: 'US $', label: 'US dollar', flag: '🇺🇸' },
       { value: '€', label: 'Euro', flag: '🇪🇺' },
-      // diğer ülkeleri ekleyin
+      //=> diğer ülkeleri ekleyin
     ];
   
     const customStyles = {
@@ -40,33 +41,31 @@ const CurrencyDropdown = () => {
     };
   
     useEffect(() => {
-      // seçili para biriminin default değerini ABD Doları olarak ayarlıyoruz
+      //=> seçili para biriminin default değerini ABD Doları olarak ayarlıyoruz
       setSelectedCurrency(countries[0]);
       
-      // redux store'daki currency'yi güncelliyoruz
+      //=> redux store'daki currency'yi güncelliyoruz
       dispatch(Currency(countries[0].value));
     }, [dispatch]);
 
     return (
-                    <div className='w-[377.005px] h-[102.88px] flex flex-col items-center'>
-                        <div className='w-[353.1px] h-[78.88px] mb-[24px] flex flex-col'>
-                            <label htmlFor='currency'>Currency</label>
+      <div className='w-[377.005px] h-[102.88px] flex flex-col items-center'>
 
-                            <div className='w-[353.01px] h-[48px] mt-[9.19px]'></div>
-      <Select
-        options={countries}
-        styles={customStyles}
-        value={selectedCurrency}
-        onChange={(selectedOption) => {
-    setSelectedCurrency(selectedOption);
-    dispatch(Currency(selectedOption.value));
-  }}
-        placeholder="Select currency..."
-        isSearchable
-        
-      />
+          <div className='w-[353.1px] h-[78.88px] mb-[24px] flex flex-col'> {/*=> currency seçme kısmı */}
+              <label htmlFor='currency'>Currency</label>
+                  <div className='w-[353.01px] h-[48px] mt-[9.19px]'></div>
+                      <Select   
+                        options={countries}
+                        styles={customStyles}
+                        value={selectedCurrency}
+                        onChange={(selectedOption) => {
+                        setSelectedCurrency(selectedOption);
+                        dispatch(Currency(selectedOption.value));}}
+                        placeholder="Select currency..."
+                        isSearchable     
+                      />  {/*=> seçme işlemleri için react select kütüphanesi kullanıldı*/}
+                    </div>
 
-      </div>
       </div>
       
     );

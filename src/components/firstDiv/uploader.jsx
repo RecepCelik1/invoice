@@ -9,22 +9,23 @@ const Uploader = () => {
   const logo = useSelector((state) => state.logo)
   console.log('yüklenen resim : ',logo)
 
-    const handleFileChange = (event) => {
-        const fileInput = event.target;
-        const file = fileInput.files[0];
+    const handleFileChange = (event) => {  //=> dosya yüklendiğinde veya güncellendiğinde tetiklenen fonksiyon
+        
+        const fileInput = event.target; //=> yüklenen resim fileInputa pushlanıyor
+        const file = fileInput.files[0]; //=> statik bir index numarası girilerek birden fazla resim yüklenmesi önleniyor
       
-        if (file) {
+        if (file) {   //=> check işlemleri
           const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-          const maxSize = 5 * 1024 * 1024; // 5 MB
+          const maxSize = 5 * 1024 * 1024; //=> 5 MB
       
           if (allowedFileTypes.includes(file.type) && file.size <= maxSize) {
-            // dosya türü ve boyutu uygun, işlemleri burada gerçekleştirin
+            //=> dosya türü ve boyutu uygun, işlemleri burada gerçekleştirin
             dispatch(logoSlice(event.target.value))
             
           } else {
-            // dosya türü veya boyutu uygun değil
+            //=> dosya türü veya boyutu uygun değil
             alert('Lütfen geçerli bir .jpg, .jpeg veya .png dosyası (5 MB\'dan küçük) seçin.');
-            fileInput.value = ''; // input'u temizle
+            fileInput.value = ''; //=> input'u temizle
           }
         }
         
@@ -34,9 +35,10 @@ const Uploader = () => {
     return (
       <div className='w-[376.99px] h-[134.96px] flex justify-center'>
         <div className='w-[353.01px] h-[110.96px] mb-[24px]'>
-                      <label htmlFor="purchaseOrder">Logo</label>
-                      <div className='w-[353.01px] h-[80.08px]'>
-                          <div className='w-[350.61px] h-[77.68px] border-black border-[1px] mt-[10px] cursor-pointer hover:bg-[#16330014]'
+          
+                  <label htmlFor="purchaseOrder">Logo</label>
+                    <div className='w-[353.01px] h-[80.08px]'>
+                      <div className='w-[350.61px] h-[77.68px] border-black border-[1px] mt-[10px] cursor-pointer hover:bg-[#16330014]'
                           onClick={() => document.getElementById('np-upload-button').click()}>
                             <input 
                               id='np-upload-button' 
@@ -52,10 +54,11 @@ const Uploader = () => {
                                 <div>JPG, JPEG, PNG, less than 5mb</div>
                               </div>
                             </div>
-                          </div>
-                        </div>
-                      </div>
-                      </div>
+                      </div> {/* bu kısım sayesinde çirkin input yapısı gizleniyor onun yerine div kutusu interaktif hale getirilip */}
+                              {/*tıklandığında input yapısını tetikleyecek şekilde çalışıyor */}
+                    </div>
+          </div>
+      </div>
                       
     )
 }

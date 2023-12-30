@@ -6,10 +6,12 @@ import 'jspdf-autotable';
 
 const FourthDiv = () => {
 
-  const name = useSelector(state => state.name)
-  const details = useSelector(state => state.details)
+  //pdf ye bastırılacak dataları çekme kısmı
   const logo = useSelector(state => state.logo.uploadLogo)  // şu anlık yüklenen resimleri pdfye ekleyemiyoruz jsPDF boktan bir k
   const currency = useSelector(state => state.currency.currency)  // kütüphane düzeltince editlerim
+  
+  const name = useSelector(state => state.name)
+  const details = useSelector(state => state.details)
   const calenders = useSelector(state => state.calenders)
   const productsData = useSelector(state => state.dataStore.data)
   const subTotal = useSelector(state => state.dataStore.sumOfamounts)
@@ -20,11 +22,11 @@ const FourthDiv = () => {
   const generatePDF = () => {
 
     
-    let length = 0;
-    let taxValue = subTotal * (totals.tax/100) 
-    let totalAmount = (subTotal + (taxValue)) + (totals.shipping - totals.discount)
+    let length = 0; //=> dinamik content içeriği için dinamik height
+    let taxValue = subTotal * (totals.tax/100) //=> vergi tutarı
+    let totalAmount = (subTotal + (taxValue)) + (totals.shipping - totals.discount) //=> aritmetik işlemler vs.
     
-    const doc = new jsPDF();
+    const doc = new jsPDF();  //=> yeni pdf oluştur
 
 
     doc.text(`invoice number : ${name.invoiceNumber}`,10,20)
@@ -34,7 +36,7 @@ const FourthDiv = () => {
     doc.text(`invoice date : ${calenders.invoiceDate.day}/${calenders.invoiceDate.month + 1}/${calenders.invoiceDate.year}`,10,60)
     doc.text(`due date : ${calenders.dueDate.day}/${calenders.dueDate.month + 1}/${calenders.dueDate.year}`,150,60)
 
-    for (let index = 0; index < productsData.length; index++) {
+    for (let index = 0; index < productsData.length; index++) { //=> kullanıcının oluşturduğu ürünleri döngü ile teker teker bastır
       doc.text(`description : ${typeof(productsData[index].description) == "undefined" ? "" : productsData[index].description}     unit cost : ${typeof(productsData[index].cost) == "undefined" ? "" : productsData[index].cost}    quantity : ${typeof(productsData[index].quantity) == "undefined" ? "" : productsData[index].quantity}     unit amount : ${typeof(productsData[index].amount) == "undefined" ? "" : productsData[index].amount}`,10, 90 + (index*10))
       length = length + 1;
     }
