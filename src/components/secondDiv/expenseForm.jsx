@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { createDataFunc, deleteDataFunc, updateDataFunc, switchItems, defaultDataFunc, dynamicHeightFunc } from "../../redux/secondDivSlices/dataSlice";
+import { createDataFunc, deleteDataFunc, updateDataFunc, switchItems, defaultDataFunc } from "../../redux/secondDivSlices/dataSlice";
 
 const ExpenseForm = () => {
 
@@ -20,7 +20,7 @@ const ExpenseForm = () => {
   ]);
  
 
-  useEffect(() => { //=> sayfa ilk render edildiğinde expense içerisinde default olarak oluşan objeyi stateye dispatch etmek için
+  useEffect(() => {
     const defaultExpense = {
       description: "",
       cost: 0,
@@ -28,8 +28,7 @@ const ExpenseForm = () => {
       amount: 0,
     };
     dispatch(defaultDataFunc({ index: 0, expense: defaultExpense }));
-    //dispatch(dynamicHeightFunc(height))  //==> burada ufak bi pürüz var gibi yarın bakıcam dinamik olarak parent div yüksekliğini 
-    //ayarlamak için kullanıyorum
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); //=> array boş bırakılarak sadece ilk renderda tetiklenmesi sağlanıypr
   
   const handleButtonClick = () => { //=> yeni div oluşturulduğunda tetiklenen fonksiyon
@@ -124,7 +123,7 @@ const ExpenseForm = () => {
 <div className={`bg-[#16330014] w-full h-[${height}] mt-[16px] mb-[32px] flex flex-col items-center`}>
 
    {expenses.map((expense, index) => ( //=> expense içerisinde bulunan dataları aşağıdaki gibi mapla
-    <div className={` w-full h-[${height}] mt-[16px] mb-[32px] flex flex-col items-center`}>
+    <div key={index} className={` w-full h-[${height}] mt-[16px] mb-[32px] flex flex-col items-center`}>
       <div className="w-[730px] h-[88.9px] -300 mr-[8px] ml-[8px] mt-[23px] mb-[15px]">
         <div className={`p-4 h-[${height}]`}>
           <div key={index} className="mb-4 p-2 flex justify-center">

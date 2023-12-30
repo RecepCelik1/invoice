@@ -1,35 +1,30 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { logoSlice } from '../../redux/firstDivSlices/uploadSlice';
+import { useDispatch } from 'react-redux'
+import { setUploadLogoPath  } from '../../redux/firstDivSlices/uploadSlice';
 import { LiaUploadSolid } from "react-icons/lia";
 
 const Uploader = () => {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
-  const logo = useSelector((state) => state.logo)
-  console.log('yüklenen resim : ',logo)
+  const handleFileChange = (event) => {
+    const fileInput = event.target;
+    const file = fileInput.files[0];
 
-    const handleFileChange = (event) => {  //=> dosya yüklendiğinde veya güncellendiğinde tetiklenen fonksiyon
-        
-        const fileInput = event.target; //=> yüklenen resim fileInputa pushlanıyor
-        const file = fileInput.files[0]; //=> statik bir index numarası girilerek birden fazla resim yüklenmesi önleniyor
-      
-        if (file) {   //=> check işlemleri
-          const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-          const maxSize = 5 * 1024 * 1024; //=> 5 MB
-      
-          if (allowedFileTypes.includes(file.type) && file.size <= maxSize) {
-            //=> dosya türü ve boyutu uygun, işlemleri burada gerçekleştirin
-            dispatch(logoSlice(event.target.value))
-            
-          } else {
-            //=> dosya türü veya boyutu uygun değil
-            alert('Lütfen geçerli bir .jpg, .jpeg veya .png dosyası (5 MB\'dan küçük) seçin.');
-            fileInput.value = ''; //=> input'u temizle
-          }
-        }
-        
-      };
+    if (file) {
+      const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+      const maxSize = 5 * 1024 * 1024;
+
+      if (allowedFileTypes.includes(file.type) && file.size <= maxSize) {
+        // Dosya türü ve boyutu uygun, dosyanın veri yolunu alıp Redux store'a dispatch et
+        const logoPath = URL.createObjectURL(file);
+        dispatch(setUploadLogoPath(logoPath));
+        console.log("logo path : ", logoPath)
+      } else {
+        alert('Lütfen geçerli bir .jpg, .jpeg veya .png dosyası (5 MB\'dan küçük) seçin.');
+        fileInput.value = '';
+      }
+    }
+  };
     
 
     return (

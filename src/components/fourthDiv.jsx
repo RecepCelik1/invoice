@@ -7,8 +7,8 @@ import 'jspdf-autotable';
 const FourthDiv = () => {
 
   //pdf ye bastırılacak dataları çekme kısmı
-  const logo = useSelector(state => state.logo.uploadLogo)  // şu anlık yüklenen resimleri pdfye ekleyemiyoruz jsPDF boktan bir k
-  const currency = useSelector(state => state.currency.currency)  // kütüphane düzeltince editlerim
+
+  const currency = useSelector(state => state.currency.currency) 
   
   const name = useSelector(state => state.name)
   const details = useSelector(state => state.details)
@@ -17,7 +17,7 @@ const FourthDiv = () => {
   const subTotal = useSelector(state => state.dataStore.sumOfamounts)
   const notes = useSelector(state => state.notes)
   const totals = useSelector(state => state.total)
-  
+  const logoPath = useSelector((state) => state.logo.uploadLogoPath);
 
   const generatePDF = () => {
 
@@ -27,6 +27,8 @@ const FourthDiv = () => {
     let totalAmount = (subTotal + (taxValue)) + (totals.shipping - totals.discount) //=> aritmetik işlemler vs.
     
     const doc = new jsPDF();  //=> yeni pdf oluştur
+
+    
 
 
     doc.text(`invoice number : ${name.invoiceNumber}`,10,20)
@@ -50,6 +52,14 @@ const FourthDiv = () => {
     doc.text(`shipping : ${currency}${totals.shipping}`,10, 230 + (length*10))
     doc.text(`invoice total : ${currency}${isNaN(totalAmount) ? 0 : totalAmount}`,10, 250 + (length*10))
 
+    if (logoPath) {
+      const img = new Image();
+      img.src = logoPath;
+      doc.addImage(img, 'PNG', 130, 100 + (length*10), 50, 50);
+      doc.addImage(img, 'JGP', 130, 100 + (length*10), 50, 50);
+      doc.addImage(img, 'JPEG', 130, 100 + (length*10), 50, 50);
+      console.log('Logo yüklendi');
+    }
 
     // PDF dosyasını indir
     doc.save('invoice.pdf');

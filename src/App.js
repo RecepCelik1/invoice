@@ -10,7 +10,7 @@ function App() {
 
   const height = useSelector(state => state.dataStore.dynamicHeight)
   const h1 = 1060.17 
-  const h2 = 1044.17  // burayı contentin yükeskliğini dinamik hale getirmek için yazdım ama bu konuda ufak tefek pürüzler var 
+  //const h2 = 1044.17  // burayı contentin yükeskliğini dinamik hale getirmek için yazdım ama bu konuda ufak tefek pürüzler var 
                       // olması gerektiği gibi çalışmıyor düzelttikten editlerim
   console.log('height : ', height)
 
