@@ -1,10 +1,10 @@
 import React, {  } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import FirstDiv from './components/firstDiv/firstDIV.jsx';
-import SecondDiv from './components/secondDiv/secondDIV.jsx';
 import ThirdDiv from './components/thirthDiv/thirdDIV.jsx';
 import FourthDiv from './components/fourthDiv.jsx';
 import { useSelector } from 'react-redux';
+import ExpenseForm from './components/secondDiv/expenseForm.jsx';
 
 function App() {
 
@@ -22,7 +22,7 @@ function App() {
 
 
   /*
-  * SecondDiv : expense kısmına ürün eklediğim bölüm bulunuyor sadece. bu kısım dinamik yüksekliğe sahip. components içerisinde 
+  * ExpenseForm : expense kısmına ürün eklediğim bölüm bulunuyor sadece. bu kısım dinamik yüksekliğe sahip. components içerisinde 
     secondDiv klasorü içerisinde tutuluyor. düzen bozulmasın diye secondDIV e aktarılıp, buraya çekildi
   */
 
@@ -45,7 +45,7 @@ function App() {
             <div className={`bg-white w-[793.99px] flex flex-col items-center`}>
         
                 <FirstDiv />
-                <SecondDiv />
+                <ExpenseForm />
                 <ThirdDiv />
                 <FourthDiv />
 
