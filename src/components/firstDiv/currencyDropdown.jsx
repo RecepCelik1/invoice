@@ -14,8 +14,9 @@ const CurrencyDropdown = () => {
 
     //=> ülkelerin listesi
     const countries = [
-      { value: 'US $', label: 'US dollar', flag: '🇺🇸' },
+      { value: 'USD', label: 'US dollar', flag: '🇺🇸' },
       { value: '€', label: 'Euro', flag: '🇪🇺' },
+      { value: '£', label: 'GBP', flag: 'UK' },
       //=> diğer ülkeleri ekleyin
     ];
   
@@ -46,6 +47,7 @@ const CurrencyDropdown = () => {
       
       //=> redux store'daki currency'yi güncelliyoruz
       dispatch(Currency(countries[0].value));
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
     return (
