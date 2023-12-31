@@ -41,7 +41,7 @@ function App() {
       <div className='flex flex-col items-center bg-[#282c34]'>
         <div className={`relative w-[858px] h-[${h1 + height}] flex flex-col items-center rounded-[30px] shadow-2xl mt-[150px] mb-[200px]`}>
           <div className={`absolute top-0 left-0 w-full h-[${h1 + height}] bg-cover bg-center rounded-[31.5px] bg-[#f97316]`}></div>
-          <div className={`relative w-full h-[${h1 + height}] bg-white rounded-[30px] flex items-center justify-center`}>
+          <div className={`relative w-full h-[${h1 + height}]  rounded-[30px] flex items-center justify-center bg-[#61dafb]`}>
             <div className={`bg-white w-[793.99px] flex flex-col items-center`}>
         
                 <FirstDiv />
