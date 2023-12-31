@@ -9,7 +9,7 @@ const ThirdDiv = () => {
                   <div className='w-[754px] h-full flex justify-center'>
                     <Notes />
                     <Total />
-                    
+
                   </div>
 
                 </div>
