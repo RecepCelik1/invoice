@@ -22,47 +22,126 @@ const FourthDiv = () => {
   const generatePDF = () => {
 
     
-    let length = 0; //=> dinamik content içeriği için dinamik height
+    
+    let length = productsData.length-1; //=> dinamik content içeriği için dinamik height
     let taxValue = subTotal * (totals.tax/100) //=> vergi tutarı
     let totalAmount = (subTotal + (taxValue)) + (totals.shipping - totals.discount) //=> aritmetik işlemler vs.
-    
+    let index = 0;
     const doc = new jsPDF();  //=> yeni pdf oluştur
 
+    let regionWidth = doc.internal.pageSize.width;
+
+    doc.setFont("helvetica");
+    doc.setFontSize(30);
+    doc.setTextColor( 101, 101, 101 );
     
+    doc.text("Invoice",20 ,20 )
+    doc.setFontSize(10);
+    doc.text(`INVOICE NUMBER`,20,35)
+    doc.setFontSize(13);
+    doc.setTextColor( 0, 0, 0 );
+    doc.text(`${name.invoiceNumber}`,20,42)
 
+    doc.setTextColor( 101, 101, 101 )
+    doc.setFontSize(10);
+    doc.text(`DATE OF ISSUE`, 65, 35)
+    doc.setTextColor( 0, 0, 0 );
+    doc.text(`${calenders.invoiceDate.day}/${calenders.invoiceDate.month + 1}/${calenders.invoiceDate.year}`,65,42)
 
-    doc.text(`invoice number : ${name.invoiceNumber}`,10,20)
-    doc.text(`purchase order : ${name.purchaseOrder}`,150,20)
-    doc.text(`company details : ${details.companyDetails}`,10,40)
-    doc.text(`bill details : ${details.billDetails}`,150,40)
-    doc.text(`invoice date : ${calenders.invoiceDate.day}/${calenders.invoiceDate.month + 1}/${calenders.invoiceDate.year}`,10,60)
-    doc.text(`due date : ${calenders.dueDate.day}/${calenders.dueDate.month + 1}/${calenders.dueDate.year}`,150,60)
+    doc.setTextColor( 101, 101, 101 )
+    doc.setFontSize(10);
+    doc.text(`DUE DATE`, 110, 35)
+    doc.setTextColor( 0, 0, 0 );
+    doc.text(`${calenders.dueDate.day}/${calenders.dueDate.month + 1}/${calenders.dueDate.year}`,110,42)
 
-    for (let index = 0; index < productsData.length; index++) { //=> kullanıcının oluşturduğu ürünleri döngü ile teker teker bastır
-      doc.text(`description : ${typeof(productsData[index].description) == "undefined" ? "" : productsData[index].description}     unit cost : ${typeof(productsData[index].cost) == "undefined" ? "" : productsData[index].cost}    quantity : ${typeof(productsData[index].quantity) == "undefined" ? "" : productsData[index].quantity}     unit amount : ${typeof(productsData[index].amount) == "undefined" ? "" : productsData[index].amount}`,10, 90 + (index*10))
-      length = length + 1;
-    }
-    
-    doc.text(`terms : ${notes.notes}`,10, 110 + (length*10))
-    doc.text(`bank account details : ${notes.bankAccount}`,10, 130 + (length*10))
-    doc.text(`subtotal : ${currency} ${isNaN(subTotal) ? 0 : subTotal}`,10, 150 + (length*10))
-    doc.text(`tax rate : ${totals.tax} %`,10, 170 + (length*10))
-    doc.text(`tax : ${currency}${isNaN(taxValue) ? 0 : taxValue}`,10, 190 + (length*10))
-    doc.text(`discount : ${currency} -${totals.discount}`,10, 210 + (length*10))
-    doc.text(`shipping : ${currency}${totals.shipping}`,10, 230 + (length*10))
-    doc.text(`invoice total : ${currency}${isNaN(totalAmount) ? 0 : totalAmount}`,10, 250 + (length*10))
+         if (logoPath) {
+       const img = new Image();
+       img.src = logoPath;
+       doc.addImage(img, 'PNG', 150, 10, 50, 50);
+       doc.addImage(img, 'JGP', 150, 10, 50, 50);
+       doc.addImage(img, 'JPEG', 150, 10, 50, 50);
+       console.log('Logo yüklendi');
+       }
 
-    if (logoPath) {
-      const img = new Image();
-      img.src = logoPath;
-      doc.addImage(img, 'PNG', 130, 100 + (length*10), 50, 50);
-      doc.addImage(img, 'JGP', 130, 100 + (length*10), 50, 50);
-      doc.addImage(img, 'JPEG', 130, 100 + (length*10), 50, 50);
-      console.log('Logo yüklendi');
-    }
+       doc.setTextColor( 101, 101, 101 )
+       doc.setFontSize(10);
+       doc.text(`BILLED TO`,20,57)
+       doc.setFontSize(13);
+       doc.setTextColor( 0, 0, 0 );
+       doc.text(`${details.billDetails}`,20,64)
+
+       doc.setTextColor( 101, 101, 101 )
+       doc.setFontSize(10);
+       doc.text(`FROM`,65,57)
+       doc.setFontSize(13);
+       doc.setTextColor( 0, 0, 0 );
+       doc.text(`${details.companyDetails}`,65,64)
+
+       doc.setTextColor( 101, 101, 101 )
+       doc.setFontSize(10);
+       doc.text(`PURCHASE ORDER`,110,57)
+       doc.setFontSize(13);
+       doc.setTextColor( 0, 0, 0 );
+       doc.text(`${name.purchaseOrder}`,110,64)
+   
+
+      doc.setFillColor(240,240,240); // Arka plan rengi (beyaz örneği)
+      doc.rect(0, 95, regionWidth,115 + (length*10), 'F');
+      doc.setTextColor( 101, 101, 101 )
+      doc.setFontSize(12);
+      doc.text(`Description`,20,105)
+      doc.text(`Unit Cost`,110,105)
+      doc.text(`QTY`,150,105)
+      doc.text(`Amount`,180,105)
+      doc.setTextColor( 0, 0, 0 );
+      doc.setFontSize(12)
+     for (index; index < productsData.length; index++) { 
+       doc.text(`${typeof(productsData[index].description) == "undefined" ? "" : productsData[index].description}`,20 , 125 + index*10)
+       doc.text(`${typeof(productsData[index].cost) == "undefined" ? "" : productsData[index].cost}`,110 , 125 + index*10)
+       doc.text(`${typeof(productsData[index].quantity) == "undefined" ? "" : productsData[index].quantity}`, 150, 125 + index*10)
+       doc.text(`${typeof(productsData[index].amount) == "undefined" ? "" : productsData[index].amount}`, 180, 125 + index*10)
+
+      }
+      doc.setTextColor( 101, 101, 101 )
+      doc.line(20, 130 + (index-1)*10, regionWidth-20, 130 + (index-1) * 10);
+      doc.text(`TERMS`,20, 135 + index*10)
+      doc.setTextColor( 0, 0, 0 )
+      doc.text(`${notes.notes}`,20,142 + index*10)
+      doc.setTextColor( 101, 101, 101 )
+      doc.setFontSize(12)
+      doc.text(`SUBTOTAL`,120 , 135 + index*10)
+      doc.text(`DISCOUNT`,120 , 142 + index*10)
+      doc.text(`(TAX RATE)`,120 , 149 + index*10)
+      doc.text(`TAX`,120 , 156 + index*10)
+      doc.text(`SHIPPING`,120 , 163 + index*10)
+
+      doc.setTextColor( 0, 0, 0 )
+      doc.setFontSize(12)
+
+      doc.text(`${currency} ${isNaN(subTotal) ? 0 : subTotal}`,170 , 135 + index*10)
+      doc.text(`${currency} -${totals.discount}`,170 , 142 + index*10)
+      doc.text(`${totals.tax} %`,170 , 149 + index*10)
+      doc.text(`${currency} ${isNaN(taxValue) ? 0 : taxValue}`,170 , 156 + index*10)
+      doc.text(`${currency} ${totals.shipping}`,170 , 163 + index*10)
+      doc.setTextColor( 101, 101, 101 )
+      doc.text(`INVOICE TOTAL`,150,183 + index*10)
+
+      doc.setTextColor( 0, 0, 0 )
+      doc.setFontSize(14)
+      doc.text(`${currency} ${isNaN(totalAmount) ? 0 : totalAmount}`,150,193+index*10)
+
+      doc.setTextColor( 101, 101, 101 )
+      doc.setFontSize(10)
+      doc.text(`BANK ACCOUNT DETAILS`,20,210 + index*10)
+      doc.setTextColor( 0, 0, 0 )
+      doc.text(`${notes.bankAccount}`,20,217 + index*10)
+
+    // doc.text(`bank account details : ${notes.bankAccount}`,10, 130 + (length*10))
+    // doc.text(`invoice total : ${currency}${isNaN(totalAmount) ? 0 : totalAmount}`,10, 250 + (length*10))
+
 
     // PDF dosyasını indir
-    doc.save('invoice.pdf');
+    doc.save('invoice.pdf'); 
   };
 
     return (

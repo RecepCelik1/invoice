@@ -9,7 +9,7 @@ const Total = () => {
     const total = useSelector (state => state.total)
     console.log(`tax : % ${total.tax}    shipping ${total.shipping}    discount ${total.discount}`) //=> değişkenleri import etme
 
-    const lastTotal = (sumOfAmounts + (sumOfAmounts * (total.tax/100))) + (total.shipping - total.discount) //=> aritmetik işlemler
+    const lastTotal = (sumOfAmounts + ((sumOfAmounts - total.discount) * (total.tax/100))) + (total.shipping - total.discount) //=> aritmetik işlemler
     const currency = useSelector(state => state.currency.currency) //=> para birimi
 
     const parseNumericInput = (value) => { //=> parsing işlemleri
