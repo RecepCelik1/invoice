@@ -85,7 +85,7 @@ const FourthDiv = () => {
        doc.text(`${name.purchaseOrder}`,110,64)
    
 
-      doc.setFillColor(240,240,240); // Arka plan rengi (beyaz örneği)
+      doc.setFillColor(240,240,240); 
       doc.rect(0, 95, regionWidth,115 + (length*10), 'F');
       doc.setTextColor( 101, 101, 101 )
       doc.setFontSize(12);
@@ -95,52 +95,75 @@ const FourthDiv = () => {
       doc.text(`Amount`,180,105)
       doc.setTextColor( 0, 0, 0 );
       doc.setFontSize(12)
-     for (index; index < productsData.length; index++) { 
-       doc.text(`${typeof(productsData[index].description) == "undefined" ? "" : productsData[index].description}`,20 , 125 + index*10)
-       doc.text(`${typeof(productsData[index].cost) == "undefined" ? "" : productsData[index].cost}`,110 , 125 + index*10)
-       doc.text(`${typeof(productsData[index].quantity) == "undefined" ? "" : productsData[index].quantity}`, 150, 125 + index*10)
-       doc.text(`${typeof(productsData[index].amount) == "undefined" ? "" : productsData[index].amount}`, 180, 125 + index*10)
 
+      let height = 125;
+      let count = 0;
+      const itemsPerPage = 8; // Her sayfada görüntülenecek öğe sayısı
+      
+      for (index; index < productsData.length; index++) {
+        
+        if (index > 0 && index % itemsPerPage === 0) {
+          doc.setFillColor(255, 255, 255);
+          doc.rect(0, 210, regionWidth, 100 + (length * 10), 'F');
+          doc.addPage();
+          doc.setFillColor(240, 240, 240);
+          doc.rect(0, 95, regionWidth, 220, 'F');
+          doc.setTextColor(101, 101, 101);
+          doc.setFontSize(12);
+          doc.text(`Description`, 20, 105);
+          doc.text(`Unit Cost`, 110, 105);
+          doc.text(`QTY`, 150, 105);
+          doc.text(`Amount`, 180, 105);
+          doc.setTextColor(0, 0, 0);
+          doc.setFontSize(12);
+          count = 0;
+        }
+      
+        doc.text(`${typeof productsData[index].description === 'undefined' ? '' : productsData[index].description}`, 20, height + count * 10);
+        doc.text(`${typeof productsData[index].cost === 'undefined' ? '' : productsData[index].cost}`, 110, height + count * 10);
+        doc.text(`${typeof productsData[index].quantity === 'undefined' ? '' : productsData[index].quantity}`, 150, height + count * 10);
+        doc.text(`${typeof productsData[index].amount === 'undefined' ? '' : productsData[index].amount}`, 180, height + count * 10);
+        count++;
       }
+
       doc.setTextColor( 101, 101, 101 )
-      doc.line(20, 130 + (index-1)*10, regionWidth-20, 130 + (index-1) * 10);
-      doc.text(`TERMS`,20, 135 + index*10)
+      doc.line(20, 130 + (count-1)*10, regionWidth-20, 130 + (count-1) * 10);
+      doc.text(`TERMS`,20, 135 + count*10)
       doc.setTextColor( 0, 0, 0 )
-      doc.text(`${notes.notes}`,20,142 + index*10)
+      doc.text(`${notes.notes}`,20,142 + count*10)
       doc.setTextColor( 101, 101, 101 )
       doc.setFontSize(12)
-      doc.text(`SUBTOTAL`,120 , 135 + index*10)
-      doc.text(`DISCOUNT`,120 , 142 + index*10)
-      doc.text(`(TAX RATE)`,120 , 149 + index*10)
-      doc.text(`TAX`,120 , 156 + index*10)
-      doc.text(`SHIPPING`,120 , 163 + index*10)
+      doc.text(`SUBTOTAL`,120 , 135 + count*10)
+      doc.text(`DISCOUNT`,120 , 142 + count*10)
+      doc.text(`(TAX RATE)`,120 , 149 + count*10)
+      doc.text(`TAX`,120 , 156 + count*10)
+      doc.text(`SHIPPING`,120 , 163 + count*10)
 
       doc.setTextColor( 0, 0, 0 )
       doc.setFontSize(12)
 
-      doc.text(`${currency} ${isNaN(subTotal) ? 0 : subTotal}`,170 , 135 + index*10)
-      doc.text(`${currency} -${totals.discount}`,170 , 142 + index*10)
-      doc.text(`${totals.tax} %`,170 , 149 + index*10)
-      doc.text(`${currency} ${isNaN(taxValue) ? 0 : taxValue}`,170 , 156 + index*10)
-      doc.text(`${currency} ${totals.shipping}`,170 , 163 + index*10)
+      doc.text(`${currency} ${isNaN(subTotal) ? 0 : subTotal}`,170 , 135 + count*10)
+      doc.text(`${currency} -${totals.discount}`,170 , 142 + count*10)
+      doc.text(`${totals.tax} %`,170 , 149 + count*10)
+      doc.text(`${currency} ${isNaN(taxValue) ? 0 : taxValue}`,170 , 156 + count*10)
+      doc.text(`${currency} ${totals.shipping}`,170 , 163 + count*10)
       doc.setTextColor( 101, 101, 101 )
-      doc.text(`INVOICE TOTAL`,150,183 + index*10)
+      doc.text(`INVOICE TOTAL`,150,177 + count*10)
 
       doc.setTextColor( 0, 0, 0 )
       doc.setFontSize(14)
-      doc.text(`${currency} ${isNaN(totalAmount) ? 0 : totalAmount}`,150,193+index*10)
+      doc.text(`${currency} ${isNaN(totalAmount) ? 0 : totalAmount}`,150,188+count*10)
+
+      doc.setFillColor(255, 255, 255);
+      doc.rect(0, 196.5 + count*10, regionWidth, 205 + count*10, 'F');
 
       doc.setTextColor( 101, 101, 101 )
       doc.setFontSize(10)
-      doc.text(`BANK ACCOUNT DETAILS`,20,210 + index*10)
+      doc.text(`BANK ACCOUNT DETAILS`,20,205 + count*10)
       doc.setTextColor( 0, 0, 0 )
-      doc.text(`${notes.bankAccount}`,20,217 + index*10)
-
-    // doc.text(`bank account details : ${notes.bankAccount}`,10, 130 + (length*10))
-    // doc.text(`invoice total : ${currency}${isNaN(totalAmount) ? 0 : totalAmount}`,10, 250 + (length*10))
+      doc.text(`${notes.bankAccount}`,20,212 + count*10)
 
 
-    // PDF dosyasını indir
     doc.save('invoice.pdf'); 
   };
 
