@@ -50,7 +50,7 @@ const Total = () => {
               </div>            
 
               <div className='w-[377px] h-[48px] mb-[24px] flex'>
-                <label className='w-[118.67px] h-[10px] ml-[8px] mt-[10px]'>Discount $</label>
+                <label className='w-[118.67px] h-[10px] ml-[8px] mt-[10px]'>Discount {currency}</label>
                   <div className='w-[251.33px] h-[48px] flex justify-center'>
                     <div className='w-[227.33px] h-[48px] flex justify-between relative'>
                         <div className='absolute right-2 bottom-4'></div>

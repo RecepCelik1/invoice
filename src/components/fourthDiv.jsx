@@ -49,7 +49,7 @@ const FourthDiv = () => {
       return lines;
   }
   
-  // Kullanım örneği
+
   const maxLineLength = 15;
   let lines ;
 
