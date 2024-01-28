@@ -21,13 +21,37 @@ const FourthDiv = () => {
 
   const generatePDF = () => {
 
-    
-    
     let length = productsData.length-1; //=> dinamik content içeriği için dinamik height
     let taxValue = subTotal * (totals.tax/100) //=> vergi tutarı
     let totalAmount = (subTotal + (taxValue)) + (totals.shipping - totals.discount) //=> aritmetik işlemler vs.
     let index = 0;
     const doc = new jsPDF();  //=> yeni pdf oluştur
+
+
+    function breakText(text, maxLength) {
+      const words = text.split(' ');
+      let currentLine = '';
+      let lines = [];
+  
+      words.forEach(word => {
+          if ((currentLine + ' ' + word).length <= maxLength) {
+              currentLine += (currentLine === '' ? '' : ' ') + word;
+          } else {
+              lines.push(currentLine);
+              currentLine = word;
+          }
+      });
+  
+      if (currentLine.trim() !== '') {
+          lines.push(currentLine);
+      }
+  
+      return lines;
+  }
+  
+  // Kullanım örneği
+  const maxLineLength = 15;
+  let lines ;
 
     let regionWidth = doc.internal.pageSize.width;
 
@@ -67,22 +91,33 @@ const FourthDiv = () => {
        doc.setFontSize(10);
        doc.text(`BILLED TO`,20,57)
        doc.setFontSize(13);
-       doc.setTextColor( 0, 0, 0 );
-       doc.text(`${details.billDetails}`,20,64)
+       doc.setTextColor( 0, 0, 0 ); 
+       lines = breakText(details.billDetails , maxLineLength);
+       lines.forEach((line, index) => {
+           doc.text(line, 20, 64 + index * 7); // 7 is an arbitrary value for vertical spacing
+       });
 
        doc.setTextColor( 101, 101, 101 )
        doc.setFontSize(10);
        doc.text(`FROM`,65,57)
        doc.setFontSize(13);
        doc.setTextColor( 0, 0, 0 );
-       doc.text(`${details.companyDetails}`,65,64)
+       lines = breakText(details.companyDetails , maxLineLength);
+       lines.forEach((line, index) => {
+           doc.text(line, 65, 64 + index * 7); // 7 is an arbitrary value for vertical spacing
+       });
+
 
        doc.setTextColor( 101, 101, 101 )
        doc.setFontSize(10);
        doc.text(`PURCHASE ORDER`,110,57)
        doc.setFontSize(13);
        doc.setTextColor( 0, 0, 0 );
-       doc.text(`${name.purchaseOrder}`,110,64)
+       lines = breakText(name.purchaseOrder , maxLineLength);
+       lines.forEach((line, index) => {
+           doc.text(line, 110, 64 + index * 7); // 7 is an arbitrary value for vertical spacing
+       });
+       //doc.text(`${name.purchaseOrder}`,110,64)
    
 
       doc.setFillColor(240,240,240); 
@@ -143,7 +178,7 @@ const FourthDiv = () => {
       doc.setFontSize(12)
 
       doc.text(`${currency} ${isNaN(subTotal) ? 0 : subTotal}`,170 , 135 + count*10)
-      doc.text(`${currency} -${totals.discount}`,170 , 142 + count*10)
+      doc.text(`${currency} ${totals.discount === 0 ? 0 : - totals.discount}`,170 , 142 + count*10)
       doc.text(`${totals.tax} %`,170 , 149 + count*10)
       doc.text(`${currency} ${isNaN(taxValue) ? 0 : taxValue}`,170 , 156 + count*10)
       doc.text(`${currency} ${totals.shipping}`,170 , 163 + count*10)
