@@ -1,11 +1,9 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { invoiceNum, purchaseNum } from '../../redux/firstDivSlices/nameSlice';
 
 const Name = () => {
-  const name = useSelector((state) => state.name)
   const dispatch = useDispatch()
-  console.log(`invoice number : ${name.invoiceNumber}  purchase order : ${name.purchaseOrder}`)
     return (
 
     <div className='w-[376.99px] h-[101.66px] flex justify-center'>

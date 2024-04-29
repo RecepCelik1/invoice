@@ -1,16 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Currency } from '../../redux/firstDivSlices/currencySlice';
 
 
 const CurrencyDropdown = () => {
 
     const [selectedCurrency, setSelectedCurrency] = useState(null);
-    const currency = useSelector((state)=>state.currency)
     const dispatch = useDispatch()
-    console.log(`seçili para birimi (currency) : `, currency)
 
     //=> ülkelerin listesi
     const countries = [

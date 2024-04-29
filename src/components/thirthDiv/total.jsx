@@ -7,7 +7,6 @@ const Total = () => {
     const sumOfAmounts = useSelector(state => state.dataStore.sumOfamounts)
     const dispatch = useDispatch()
     const total = useSelector (state => state.total)
-    console.log(`tax : % ${total.tax}    shipping ${total.shipping}    discount ${total.discount}`) //=> değişkenleri import etme
 
     const lastTotal = (sumOfAmounts + ((sumOfAmounts - total.discount) * (total.tax/100))) + (total.shipping - total.discount) //=> aritmetik işlemler
     const currency = useSelector(state => state.currency.currency) //=> para birimi

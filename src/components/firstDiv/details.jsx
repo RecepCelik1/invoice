@@ -1,11 +1,9 @@
 import React from "react"
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { company, bill } from '../../redux/firstDivSlices/detailSlice';
 
 const Details = () => {
-  const detail = useSelector((state) => state.details)
   const dispatch = useDispatch()
-  console.log(`company details : ${detail.companyDetails}   bill details : ${detail.billDetails}`)
 
 return(
     <div className='w-[754px] h-[172.9px] flex justify-center'>

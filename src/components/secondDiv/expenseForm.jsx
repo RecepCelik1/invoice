@@ -27,7 +27,7 @@ const ExpenseForm = () => {
       quantity: 0,
       amount: 0,
     };
-    dispatch(defaultDataFunc({ index: 0, expense: defaultExpense }));
+    dispatch(defaultDataFunc({ index: 0, description: defaultExpense.description, cost : defaultExpense.cost, quantity : defaultExpense.quantity, amount : defaultExpense.amount }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); //=> array boş bırakılarak sadece ilk renderda tetiklenmesi sağlanıypr
   
@@ -39,7 +39,7 @@ const ExpenseForm = () => {
       amount: 0,
     };
     setExpenses([...expenses, newExpense]); //=> oluşan obje expense içerisine pushlanıyor
-    dispatch(createDataFunc({ index: expenses.length, expense: newExpense })); //=> güncel expenses dispatch ediliyor
+    dispatch(createDataFunc({ index: expenses.length, description: newExpense.description, cost : newExpense.cost, quantity : newExpense.quantity, amount : newExpense.amount })); //=> güncel expenses dispatch ediliyor
     
     setHeight(height + 88.89) //=> dinamik yükseklik
     setHeight((prevHeight) => prevHeight + 88.89);

@@ -1,11 +1,9 @@
 import React from "react";
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { note, bank } from "../../redux/thirdDivSlices/noteSlice";
 
 const Notes = () => {
-    const notes = useSelector(state => state.notes)
     const dispatch = useDispatch()
-    console.log(`Notes / payment terms : ${notes.notes}   Bank account details : ${notes.bankAccount}`)
     
     return (
         <div className='w-[377px] h-[431.67px] flex flex-col items-center'>

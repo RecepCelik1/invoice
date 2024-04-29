@@ -2,7 +2,7 @@ import React, {  } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import FirstDiv from './components/firstDiv/firstDIV.jsx';
 import ThirdDiv from './components/thirthDiv/thirdDIV.jsx';
-import FourthDiv from './components/fourthDiv.jsx';
+import FourthDiv from './components/generatingPDF/fourthDiv.jsx';
 import { useSelector } from 'react-redux';
 import ExpenseForm from './components/secondDiv/expenseForm.jsx';
 
@@ -12,7 +12,6 @@ function App() {
   const h1 = 1060.17 
   //const h2 = 1044.17  // burayı contentin yükeskliğini dinamik hale getirmek için yazdım ama bu konuda ufak tefek pürüzler var 
                       // olması gerektiği gibi çalışmıyor düzelttikten editlerim
-  console.log('height : ', height)
 
   /*
   * FirstDiv : invoice number , purchase order, logo yükleme kısmı, company details , bill to currency, invoice date ve due date

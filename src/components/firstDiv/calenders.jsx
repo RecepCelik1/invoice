@@ -2,17 +2,14 @@ import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { BsChevronDown } from 'react-icons/bs';
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { invoicerFunc, dueDaterFunc } from '../../redux/firstDivSlices/calenderSlice';
 
 const Calender = () => {
 
 const [startDate, setStartDate] = useState(new Date());
 const [endDate, setEndDate] = useState(new Date());
-const calenders = useSelector((state)=>state.calenders)
 const dispatch = useDispatch()
-
-console.log(`invoice date : `, calenders.invoiceDate, `due date : `,calenders.dueDate)
 
 const handleStartDateChange = (date) => { //=> kullanıcıdan başlangıç tarihini alıyoruz
   setStartDate(date);
