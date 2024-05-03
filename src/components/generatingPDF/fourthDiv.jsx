@@ -67,7 +67,11 @@ const FourthDiv = () => {
   const logoPath = useSelector((state) => state.logo.uploadLogoPath); 
   //pdf ye bastırılacak dataları çekme kısmı
 
-  const absoluteTotal = subTotal - parseFloat(totals.discount) + parseFloat(totals.shipping) + ((subTotal*parseFloat(totals.tax))/100)
+  const tax = parseFloat(totals.tax);
+  const discount = parseFloat(totals.discount);
+  const taxValue = ((subTotal - discount)*tax)/100
+  const shippingCost = parseFloat(totals.shipping);
+  const absoluteTotal = subTotal - discount + shippingCost + taxValue
   const PDFfile = () => {
 
     return (
@@ -85,6 +89,7 @@ const FourthDiv = () => {
           </View>
         </View>
         <View style={styles.companyInfoSegments}>
+          <Text style={{fontFamily : 'GabaritoBold' , fontSize : '12px', marginBottom : '4px'}}>From :</Text>
           <Text style={{ fontFamily : 'Gabarito' , fontSize : '12px', marginBottom : '4px'}}>{details.companyDetails}</Text>
         </View>
         <Svg style={{marginTop : '4px', marginBottom : '4px'}} height="10" width="500">
@@ -97,7 +102,7 @@ const FourthDiv = () => {
           />
         </Svg>
         <View style={{marginTop : '5px' , marginBottom : '5px'}}>
-          <Text style={{fontFamily : 'GabaritoBold' , fontSize : '12px', marginBottom : '4px'}}>Bill to:</Text>
+          <Text style={{fontFamily : 'GabaritoBold' , fontSize : '12px', marginBottom : '4px'}}>Bill to :</Text>
           <Text style={{ fontFamily : 'Gabarito' , fontSize : '12px', marginBottom : '4px'}}>{details.billDetails}</Text>
         </View>
         <Svg style={{marginTop : '4px', marginBottom : '4px'}} height="10" width="500">
@@ -143,9 +148,7 @@ const FourthDiv = () => {
   </View>
 ))}
 
-
-  
-        <View style={{borderBottom : '1px', borderColor : '#c0c0c0',width : '100%'}}>{/* table row */}
+      <View style={{borderBottom : '1px', borderColor : '#c0c0c0',width : '100%'}}>{/* table row */}
           <View style={{marginBottom : '5px', marginTop : '5px',display : 'flex', flexDirection : 'row'}}>
             <View style={{display : 'flex' , flexDirection : 'row', width : '50%'}}>
               <Text style={{fontFamily : 'Gabarito', fontSize : '10px', width : '15%', display : 'flex', alignItems : 'center', justifyContent : 'center'}}></Text>
@@ -158,6 +161,11 @@ const FourthDiv = () => {
             </View>
           </View>
         </View>
+
+
+
+  
+
 
         <View style={{backgroundColor : '#ebf8ff', padding : '12px', borderRadius : '6px', border: '1px solid #bee3f8', marginTop : '40px'}}>
           <Text style={{color : "#2b6cb0", fontSize : '10px', fontFamily : 'Gabarito'}}>{notes.bankAccount}</Text>

@@ -45,7 +45,7 @@ useEffect(() => {   //=> aynı işlemler bitiş tarihi içinde
   dispatch(
     dueDaterFunc({
       day: currentDate.getDate(),
-      month: currentDate.getMonth() + 1,
+      month: currentDate.getMonth(),
       year: currentDate.getFullYear(),
     })
     
