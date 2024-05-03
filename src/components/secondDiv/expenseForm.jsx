@@ -11,16 +11,16 @@ const ExpenseForm = () => {
                                                 //olarak kullanılıyor
 
   const [expenses, setExpenses] = useState([    //=> her yeni div oluştuğunda dive karşılık bir object oluşuyor. objedeki değişkenler 
-    {                                           //divdeki inputlara karşılıklı. oluşan obje expenses içerisinde saklanıyor
+/*     {                                           //divdeki inputlara karşılıklı. oluşan obje expenses içerisinde saklanıyor
       description: "",
       cost: 0,
       quantity: 0,
       amount: 0,
-    },
+    }, */
   ]);
  
 
-  useEffect(() => {
+/*   useEffect(() => {
     const defaultExpense = {
       description: "",
       cost: 0,
@@ -29,7 +29,7 @@ const ExpenseForm = () => {
     };
     dispatch(defaultDataFunc({ index: 0, description: defaultExpense.description, cost : defaultExpense.cost, quantity : defaultExpense.quantity, amount : defaultExpense.amount }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); //=> array boş bırakılarak sadece ilk renderda tetiklenmesi sağlanıypr
+  }, []); */ //=> array boş bırakılarak sadece ilk renderda tetiklenmesi sağlanıypr
   
   const handleButtonClick = () => { //=> yeni div oluşturulduğunda tetiklenen fonksiyon
     const newExpense = {

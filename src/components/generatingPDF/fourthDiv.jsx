@@ -182,7 +182,7 @@ const FourthDiv = () => {
             stroke="rgb(192,192,192)"
           />
         </Svg>
-        <Text style={{fontFamily : 'Gabarito', fontSize : '12px', color : '#c0c0c0'}}>Invoice #1234</Text>
+        <Text style={{fontFamily : 'Gabarito', fontSize : '12px', color : '#c0c0c0'}}>Invoice #{name.invoiceNumber}</Text>
         </View>
       </Page>
     </Document>
