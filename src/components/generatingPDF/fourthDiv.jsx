@@ -148,36 +148,34 @@ const FourthDiv = () => {
   </View>
 ))}
 
-      <View style={{width : '100%'}}>{/* table header */}
+      <View style={{width : '100%', marginTop : "5px"}}>{/* table header */}
           <View style={{marginBottom : '5px', marginTop : '5px',display : 'flex', flexDirection : 'row'}}>
-            <View style={{display : 'flex' , flexDirection : 'row', width : '50%'}}>
+            <View style={{display : 'flex' , flexDirection : 'row', width : '70%'}}>
               <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '15%', display : 'flex', alignItems : 'center', justifyContent : 'center'}}></Text>
               <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '85%', textAlign : "center"}}></Text>
             </View>
-            <View style={{display : 'flex', flexDirection : 'row', width : '50%'}}>
-              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '100%', textAlign : "center"}}></Text>
-              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '100%', textAlign : "center"}}></Text>
-              <View style={{display : "flex", flexDirection : "column", width : "100%"}}>
-                <Text style={{width : "100%", textAlign : "center", fontFamily : "Gabarito", fontSize : "10px"}}>Subtotal : {subTotal.toFixed(2)}</Text>
-                <Text style={{width : "100%", textAlign : "center", fontFamily : "Gabarito", fontSize : "10px"}}>Taxes : {taxValue.toFixed(2)}
-                </Text>
-                <Text style={{width : "100%", textAlign : "center", fontFamily : "Gabarito", fontSize : "10px"}}>Shipping : {shippingCost.toFixed(2)}</Text>
-                <Text style={{width : "100%", textAlign : "center", fontFamily : "Gabarito", fontSize : "10px"}}>Discount : {discount.toFixed(2)}</Text>
+            <View style={{display : 'flex', flexDirection : 'column', width : '30%'}}>
+              <View style={{display : 'flex', justifyContent : "space-between", flexDirection : "row"}}>
+                <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', textAlign : "left"}}>Subtotal </Text>
+                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{subTotal.toFixed(2)}</Text>
               </View>
-            </View>
-          </View>
-        </View>
-
-        <View style={{width : '100%'}}>{/* table header */}
-          <View style={{marginBottom : '5px', marginTop : '5px',display : 'flex', flexDirection : 'row'}}>
-            <View style={{display : 'flex' , flexDirection : 'row', width : '50%'}}>
-              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '15%', display : 'flex', alignItems : 'center', justifyContent : 'center'}}>Total</Text>
-              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '85%', textAlign : "center"}}></Text>
-            </View>
-            <View style={{display : 'flex', flexDirection : 'row', width : '50%'}}>
-              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '100%', textAlign : "center"}}></Text>
-              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '100%', textAlign : "center"}}></Text>
-              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '100%', textAlign : "center"}}>{currency} {absoluteTotal.toFixed(2)}</Text>
+              <View style={{display : 'flex', justifyContent : "space-between", flexDirection : "row"}}>
+                <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', textAlign : "left"}}>Discount </Text>
+                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{discount.toFixed(2)}</Text>
+              </View>
+              <View style={{display : 'flex', justifyContent : "space-between", flexDirection : "row"}}>
+                <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', textAlign : "left"}}>Taxes </Text>
+                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{taxValue.toFixed(2)}</Text>
+              </View>
+              <View style={{display : 'flex', justifyContent : "space-between", flexDirection : "row"}}>
+                <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', textAlign : "left"}}>Shipping </Text>
+                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{shippingCost.toFixed(2)}</Text>
+              </View>
+              <View style={{display : 'flex', flexDirection : "column"}}>
+                <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', textAlign : "right", marginTop : "5px"}}>INVOICE TOTAL</Text>
+                <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', textAlign : "right"}}>{currency} {absoluteTotal.toFixed(2)}</Text>
+              </View>
+              
             </View>
           </View>
         </View>
