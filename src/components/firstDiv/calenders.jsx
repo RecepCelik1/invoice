@@ -19,7 +19,7 @@ const handleStartDateChange = (date) => { //=> kullanıcıdan başlangıç tarih
 const handleEndDateChange = (date) => {  //=> kullanıcıdan bitiş tarihini alıyoruz
   //=> bitiş tarihi, başlangıç tarihinden önce seçilemez
   if (date < startDate) {
-    console.error('Bitiş tarihi, başlangıç tarihinden önce seçilemez');
+    alert('The end date cannot be selected before the start date.');
   } else {
     setEndDate(date);
     dispatch(dueDaterFunc({ day: date.getDate(), month: date.getMonth(), year: date.getFullYear() }))
@@ -32,7 +32,7 @@ useEffect(() => { //=> useEffect ile sayfa ilk render edildiğinde default olara
   dispatch(
     invoicerFunc({
       day: currentDate.getDate(),
-      month: currentDate.getMonth() + 1,
+      month: currentDate.getMonth(),
       year: currentDate.getFullYear(),
     })
     

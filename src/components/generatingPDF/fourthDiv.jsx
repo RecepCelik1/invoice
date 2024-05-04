@@ -14,18 +14,18 @@ Font.register({
   src : GabaritoBold,
 })
 const months = {
-  1 : "January",
-  2 : "February",
-  3 : "Marhc",
-  4 : "April",
-  5 : "May",
-  6 : "June",
-  7 : "July",
-  8 : "August",
-  9 : "September",
-  10 : "October",
-  11 : "November",
-  12 : "December"
+  0 : "January",
+  1 : "February",
+  2 : "March",
+  3 : "April",
+  4 : "May",
+  5 : "June",
+  6 : "July",
+  7 : "August",
+  8 : "September",
+  9 : "October",
+  10 : "November",
+  11 : "December"
 }
 // PDF için bir bileşen oluştur
 const styles = StyleSheet.create({
@@ -81,7 +81,7 @@ const FourthDiv = () => {
           <View style={{display:"flex", flexDirection:"row", justifyContent: "space-between"}}>
             <View style={{display:"flex", justifyContent:"center", alignContent:"center"}}> 
               <Text style={styles.header}>Invoice #{name.invoiceNumber}</Text>
-              <Text style={{ fontFamily : 'Gabarito', fontSize : '12px', marginBottom : '4px'}}>{months[calenders.invoiceDate.month]} {calenders.invoiceDate.day} {calenders.invoiceDate.year} - {months[calenders.dueDate.month + 1]} {calenders.dueDate.day} {calenders.dueDate.year}</Text>
+              <Text style={{ fontFamily : 'Gabarito', fontSize : '12px', marginBottom : '4px'}}>{months[calenders.invoiceDate.month]} {calenders.invoiceDate.day} {calenders.invoiceDate.year} - {months[calenders.dueDate.month]} {calenders.dueDate.day} {calenders.dueDate.year}</Text>
               <Text style={{ fontFamily : 'Gabarito', fontSize : '12px' }}>{name.purchaseOrder}</Text>
             </View>
             {    
@@ -122,12 +122,12 @@ const FourthDiv = () => {
           <View style={{marginBottom : '5px', marginTop : '5px',display : 'flex', flexDirection : 'row'}}>
             <View style={{display : 'flex' , flexDirection : 'row', width : '50%'}}>
               <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '15%', display : 'flex', alignItems : 'center', justifyContent : 'center'}}>Item</Text>
-              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '85%', display : 'flex', alignItems : 'center', justifyContent : 'center'}}>Description</Text>
+              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '85%', textAlign : "center"}}>Description</Text>
             </View>
             <View style={{display : 'flex', flexDirection : 'row', width : '50%'}}>
-              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '100%', display : 'flex', alignItems : 'center', justifyContent : 'center'}}>Unit Price</Text>
-              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '100%', display : 'flex', alignItems : 'center', justifyContent : 'center'}}>Quantity</Text>
-              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '100%', display : 'flex', alignItems : 'center', justifyContent : 'center'}}>Amount</Text>
+              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '100%', textAlign : "center"}}>Unit Price</Text>
+              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '100%', textAlign : "center"}}>Quantity</Text>
+              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '100%', textAlign : "center"}}>Amount</Text>
             </View>
           </View>
         </View>
@@ -137,35 +137,50 @@ const FourthDiv = () => {
     <View style={{ marginBottom: '5px', marginTop: '5px', display: 'flex', flexDirection: 'row' }}>
       <View style={{ display: 'flex', flexDirection: 'row', width: '50%' }}>
         <Text style={{ fontFamily: 'Gabarito', fontSize: '10px', width: '15%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{index + 1}</Text>
-        <Text style={{ fontFamily: 'Gabarito', fontSize: '10px', width: '85%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{product.description}</Text>
+        <Text style={{ fontFamily: 'Gabarito', fontSize: '10px', width: '85%', textAlign : "center"}}>{product.description}</Text>
       </View>
       <View style={{ display: 'flex', flexDirection: 'row', width: '50%' }}>
-        <Text style={{ fontFamily: 'Gabarito', fontSize: '10px', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{currency} {product.cost}</Text>
-        <Text style={{ fontFamily: 'Gabarito', fontSize: '10px', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{product.quantity}</Text>
-        <Text style={{ fontFamily: 'Gabarito', fontSize: '10px', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{currency} {product.amount}</Text>
+        <Text style={{ fontFamily: 'Gabarito', fontSize: '10px', width: '100%', textAlign : "center"}}>{currency} {product.cost}</Text>
+        <Text style={{ fontFamily: 'Gabarito', fontSize: '10px', width: '100%', textAlign : "center"}}>{product.quantity}</Text>
+        <Text style={{ fontFamily: 'Gabarito', fontSize: '10px', width: '100%', textAlign : "center"}}>{currency} {product.amount}</Text>
       </View>
     </View>
   </View>
 ))}
 
-      <View style={{borderBottom : '1px', borderColor : '#c0c0c0',width : '100%'}}>{/* table row */}
+      <View style={{width : '100%'}}>{/* table header */}
           <View style={{marginBottom : '5px', marginTop : '5px',display : 'flex', flexDirection : 'row'}}>
             <View style={{display : 'flex' , flexDirection : 'row', width : '50%'}}>
-              <Text style={{fontFamily : 'Gabarito', fontSize : '10px', width : '15%', display : 'flex', alignItems : 'center', justifyContent : 'center'}}></Text>
-              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '85%', display : 'flex', alignItems : 'center', justifyContent : 'center'}}>Total</Text>
+              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '15%', display : 'flex', alignItems : 'center', justifyContent : 'center'}}></Text>
+              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '85%', textAlign : "center"}}></Text>
             </View>
             <View style={{display : 'flex', flexDirection : 'row', width : '50%'}}>
-              <Text style={{fontFamily : 'Gabarito', fontSize : '10px', width : '100%', display : 'flex', alignItems : 'center', justifyContent : 'center'}}></Text>
-              <Text style={{fontFamily : 'Gabarito', fontSize : '10px', width : '100%', display : 'flex', alignItems : 'center', justifyContent : 'center'}}></Text>
-              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '100%', display : 'flex', alignItems : 'center', justifyContent : 'center'}}>{currency} {absoluteTotal}</Text>
+              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '100%', textAlign : "center"}}></Text>
+              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '100%', textAlign : "center"}}></Text>
+              <View style={{display : "flex", flexDirection : "column", width : "100%"}}>
+                <Text style={{width : "100%", textAlign : "center", fontFamily : "Gabarito", fontSize : "10px"}}>Subtotal : {subTotal.toFixed(2)}</Text>
+                <Text style={{width : "100%", textAlign : "center", fontFamily : "Gabarito", fontSize : "10px"}}>Taxes : {taxValue.toFixed(2)}
+                </Text>
+                <Text style={{width : "100%", textAlign : "center", fontFamily : "Gabarito", fontSize : "10px"}}>Shipping : {shippingCost.toFixed(2)}</Text>
+                <Text style={{width : "100%", textAlign : "center", fontFamily : "Gabarito", fontSize : "10px"}}>Discount : {discount.toFixed(2)}</Text>
+              </View>
             </View>
           </View>
         </View>
 
-
-
-  
-
+        <View style={{width : '100%'}}>{/* table header */}
+          <View style={{marginBottom : '5px', marginTop : '5px',display : 'flex', flexDirection : 'row'}}>
+            <View style={{display : 'flex' , flexDirection : 'row', width : '50%'}}>
+              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '15%', display : 'flex', alignItems : 'center', justifyContent : 'center'}}>Total</Text>
+              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '85%', textAlign : "center"}}></Text>
+            </View>
+            <View style={{display : 'flex', flexDirection : 'row', width : '50%'}}>
+              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '100%', textAlign : "center"}}></Text>
+              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '100%', textAlign : "center"}}></Text>
+              <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '100%', textAlign : "center"}}>{currency} {absoluteTotal.toFixed(2)}</Text>
+            </View>
+          </View>
+        </View>
 
         <View style={{backgroundColor : '#ebf8ff', padding : '12px', borderRadius : '6px', border: '1px solid #bee3f8', marginTop : '40px'}}>
           <Text style={{color : "#2b6cb0", fontSize : '10px', fontFamily : 'Gabarito'}}>{notes.bankAccount}</Text>

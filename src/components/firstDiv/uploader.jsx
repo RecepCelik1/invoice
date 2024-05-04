@@ -20,7 +20,7 @@ const Uploader = () => {
         dispatch(setUploadLogoPath(logoPath));
         console.log("logo path : ", logoPath)
       } else {
-        alert('Lütfen geçerli bir .jpg, .jpeg veya .png dosyası (5 MB\'dan küçük) seçin.');
+        alert('Please select a valid .jpg, .jpeg or .png file (less than 5 MB).');
         fileInput.value = '';
       }
     }
