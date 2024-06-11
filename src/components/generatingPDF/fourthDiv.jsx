@@ -72,8 +72,15 @@ const FourthDiv = () => {
   const taxValue = ((subTotal - discount)*tax)/100
   const shippingCost = parseFloat(totals.shipping);
   const absoluteTotal = subTotal - discount + shippingCost + taxValue
-  const PDFfile = () => {
 
+  const formatNumberWithCommas = (number) => {
+    number = parseFloat(number);
+    isNaN(number) ? number = 0 : number = number + 0;
+    number = number.toFixed(2);
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };  
+
+  const PDFfile = () => {
     return (
       <Document>
       <Page size="A4" style={styles.page}>
@@ -140,9 +147,9 @@ const FourthDiv = () => {
         <Text style={{ fontFamily: 'Gabarito', fontSize: '10px', width: '85%', textAlign : "center"}}>{product.description}</Text>
       </View>
       <View style={{ display: 'flex', flexDirection: 'row', width: '50%' }}>
-        <Text style={{ fontFamily: 'Gabarito', fontSize: '10px', width: '100%', textAlign : "center"}}>{currency} {product.cost}</Text>
+        <Text style={{ fontFamily: 'Gabarito', fontSize: '10px', width: '100%', textAlign : "center"}}>{currency} {formatNumberWithCommas(product.cost)}</Text>
         <Text style={{ fontFamily: 'Gabarito', fontSize: '10px', width: '100%', textAlign : "center"}}>{product.quantity}</Text>
-        <Text style={{ fontFamily: 'Gabarito', fontSize: '10px', width: '100%', textAlign : "center"}}>{currency} {product.amount}</Text>
+        <Text style={{ fontFamily: 'Gabarito', fontSize: '10px', width: '100%', textAlign : "center"}}>{currency} {formatNumberWithCommas(product.amount)}</Text>
       </View>
     </View>
   </View>
@@ -157,23 +164,23 @@ const FourthDiv = () => {
             <View style={{display : 'flex', flexDirection : 'column', width : '30%'}}>
               <View style={{display : 'flex', justifyContent : "space-between", flexDirection : "row"}}>
                 <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', textAlign : "left"}}>Subtotal </Text>
-                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{subTotal.toFixed(2)}</Text>
+                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{formatNumberWithCommas(subTotal)}</Text>
               </View>
               <View style={{display : 'flex', justifyContent : "space-between", flexDirection : "row"}}>
                 <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', textAlign : "left"}}>Discount </Text>
-                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{discount.toFixed(2)}</Text>
+                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{formatNumberWithCommas(discount)}</Text>
               </View>
               <View style={{display : 'flex', justifyContent : "space-between", flexDirection : "row"}}>
                 <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', textAlign : "left"}}>Taxes </Text>
-                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{taxValue.toFixed(2)}</Text>
+                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{formatNumberWithCommas(taxValue)}</Text>
               </View>
               <View style={{display : 'flex', justifyContent : "space-between", flexDirection : "row"}}>
                 <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', textAlign : "left"}}>Shipping </Text>
-                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{shippingCost.toFixed(2)}</Text>
+                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{formatNumberWithCommas(shippingCost)}</Text>
               </View>
               <View style={{display : 'flex', flexDirection : "column"}}>
                 <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', textAlign : "right", marginTop : "5px"}}>INVOICE TOTAL</Text>
-                <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', textAlign : "right"}}>{currency} {absoluteTotal.toFixed(2)}</Text>
+                <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', textAlign : "right"}}>{currency} {formatNumberWithCommas(absoluteTotal)}</Text>
               </View>
               
             </View>

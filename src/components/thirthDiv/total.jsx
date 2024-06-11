@@ -26,13 +26,17 @@ const Total = () => {
       return parsedValue;
     };
 
+    const formatNumberWithCommas = (number) => {
+      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+
     return (
         <div className='w-[377px] h-[full]'>
           <div className='w-full h-[292px] flex flex-col'>
 
             <div className='w-[377px] h-[26px] mb-[24px] flex justify-between '>
               <div className='w-[125.67px] h-[26px] ml-[8px]'>Subtotal</div>
-              <div className='w-[251.33px] h-[26px] flex justify-end mr-[12px]'>{currency} {isNaN(sumOfAmounts) ? 0 : sumOfAmounts}
+              <div className='w-[251.33px] h-[26px] flex justify-end mr-[12px]'>{currency} {isNaN(sumOfAmounts) ? 0 : formatNumberWithCommas(sumOfAmounts.toFixed(2))}
               </div>
             </div>           
 
@@ -74,7 +78,7 @@ const Total = () => {
                         
               <div className='w-[377px] h-[26px] flex justify-center'>
                 <div className='h-full w-[117.67px] ml-[8px]'>Total</div>
-                  <div className='h-full w-[251.33px] flex justify-end mr-[12px]'>{currency} {isNaN(lastTotal) ? 0 : lastTotal}</div>
+                  <div className='h-full w-[251.33px] flex justify-end mr-[12px]'>{currency} {isNaN(lastTotal) ? 0 : formatNumberWithCommas(lastTotal.toFixed(2))}</div>
               </div>
 
           </div>
