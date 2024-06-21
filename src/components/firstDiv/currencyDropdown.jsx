@@ -12,7 +12,7 @@ const CurrencyDropdown = () => {
 
     //=> ülkelerin listesi
     const countries = [
-      { value: 'USD', label: 'US dollar', flag: '🇺🇸' },
+      { value: '$', label: 'US dollar', flag: '🇺🇸' },
       { value: '€', label: 'Euro', flag: '🇪🇺' },
       { value: '£', label: 'GBP', flag: 'UK' },
       //=> diğer ülkeleri ekleyin

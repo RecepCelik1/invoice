@@ -52,6 +52,17 @@ const styles = StyleSheet.create({
     left: '48px',
     right: '48px',
   },
+  container: {
+    backgroundColor: '#ebf8ff',
+    padding: 12,
+    borderRadius: 6,
+    border: '1px solid #bee3f8',
+    marginTop: 40,
+    color: '#2b6cb0',
+    fontSize: 10,
+    fontFamily: 'Gabarito',
+  },
+
 });
 
 const FourthDiv = () => {
@@ -84,12 +95,32 @@ const FourthDiv = () => {
     return (
       <Document>
       <Page size="A4" style={styles.page}>
-        <View style={styles.topSegments}>
+      <View style={styles.topSegments}>
           <View style={{display:"flex", flexDirection:"row", justifyContent: "space-between"}}>
             <View style={{display:"flex", justifyContent:"center", alignContent:"center"}}> 
-              <Text style={styles.header}>Invoice #{name.invoiceNumber}</Text>
-              <Text style={{ fontFamily : 'Gabarito', fontSize : '12px', marginBottom : '4px'}}>{months[calenders.invoiceDate.month]} {calenders.invoiceDate.day} {calenders.invoiceDate.year} - {months[calenders.dueDate.month]} {calenders.dueDate.day} {calenders.dueDate.year}</Text>
+
+            <Text style={styles.header}>Invoice #{name.invoiceNumber}</Text>
+
+            <View style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", marginTop : "4px"}}>
+              <View style={{ marginRight: 7 }}>
+                <Text style={{ fontFamily: 'GabaritoBold', fontSize : '12px', marginBottom: 0, textAlign: 'center', }}>Date of Issue</Text>
+                <Text style={{ fontFamily: 'Gabarito', fontSize: 12 }}>
+                  {months[calenders.invoiceDate.month]} {calenders.invoiceDate.day} {calenders.invoiceDate.year}
+                </Text>
+              </View>
+              <View style={{ marginLeft: 7 }}>
+                <Text style={{ fontFamily: 'GabaritoBold', fontSize : '12px', marginBottom: 0, textAlign: 'center' }}>Due Date</Text>
+                <Text style={{ fontFamily: 'Gabarito', fontSize: 12 }}>
+                  {months[calenders.dueDate.month]} {calenders.dueDate.day} {calenders.dueDate.year}
+                </Text>
+              </View>
+            </View>
+
+            <View style={{marginTop : "4px"}}>
+              <Text style={{ fontFamily : 'GabaritoBold', fontSize : '12px' }}>Purchase Order</Text>
               <Text style={{ fontFamily : 'Gabarito', fontSize : '12px' }}>{name.purchaseOrder}</Text>
+            </View>
+
             </View>
             {    
               logoPath !==null ?<Image src={logoPath} style={{maxWidth:'150px', maxHeight: '150px'}}/> : ""}
@@ -155,7 +186,7 @@ const FourthDiv = () => {
   </View>
 ))}
 
-      <View style={{width : '100%', marginTop : "5px"}}>{/* table header */}
+      <View style={{width : '100%', marginTop : "5px"}}>{/* table content */}
           <View style={{marginBottom : '5px', marginTop : '5px',display : 'flex', flexDirection : 'row'}}>
             <View style={{display : 'flex' , flexDirection : 'row', width : '70%'}}>
               <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', width : '15%', display : 'flex', alignItems : 'center', justifyContent : 'center'}}></Text>
@@ -164,19 +195,19 @@ const FourthDiv = () => {
             <View style={{display : 'flex', flexDirection : 'column', width : '30%'}}>
               <View style={{display : 'flex', justifyContent : "space-between", flexDirection : "row"}}>
                 <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', textAlign : "left"}}>Subtotal </Text>
-                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{formatNumberWithCommas(subTotal)}</Text>
+                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{currency} {formatNumberWithCommas(subTotal)}</Text>
               </View>
               <View style={{display : 'flex', justifyContent : "space-between", flexDirection : "row"}}>
                 <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', textAlign : "left"}}>Discount </Text>
-                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{formatNumberWithCommas(discount)}</Text>
+                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{currency} {formatNumberWithCommas(discount)}</Text>
               </View>
               <View style={{display : 'flex', justifyContent : "space-between", flexDirection : "row"}}>
                 <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', textAlign : "left"}}>Taxes </Text>
-                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{formatNumberWithCommas(taxValue)}</Text>
+                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{currency} {formatNumberWithCommas(taxValue)}</Text>
               </View>
               <View style={{display : 'flex', justifyContent : "space-between", flexDirection : "row"}}>
                 <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', textAlign : "left"}}>Shipping </Text>
-                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{formatNumberWithCommas(shippingCost)}</Text>
+                <Text style={{ fontFamily: 'Gabarito', fontSize: '10px',textAlign : "right"}}>{currency} {formatNumberWithCommas(shippingCost)}</Text>
               </View>
               <View style={{display : 'flex', flexDirection : "column"}}>
                 <Text style={{fontFamily : 'GabaritoBold', fontSize : '12px', textAlign : "right", marginTop : "5px"}}>INVOICE TOTAL</Text>
@@ -187,8 +218,8 @@ const FourthDiv = () => {
           </View>
         </View>
 
-        <View style={{backgroundColor : '#ebf8ff', padding : '12px', borderRadius : '6px', border: '1px solid #bee3f8', marginTop : '40px'}}>
-          <Text style={{color : "#2b6cb0", fontSize : '10px', fontFamily : 'Gabarito'}}>{notes.bankAccount}</Text>
+        <View style={styles.container} wrap={false}>
+          <Text>{notes.bankAccount}</Text>
         </View>
   
         <View style={styles.footer}>
